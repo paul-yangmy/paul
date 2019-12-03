@@ -3,6 +3,7 @@ import { stringify } from 'querystring';
 import { fakeAccountLogin, getFakeCaptcha } from '@/services/login';
 import { setAuthority } from '@/utils/authority';
 import { getPageQuery } from '@/utils/utils';
+import moment from 'moment';
 const Model = {
   namespace: 'login',
   state: {
@@ -11,7 +12,7 @@ const Model = {
   effects: {
     *login({ payload }, { call, put }) {
       const response = yield call(fakeAccountLogin, payload);
-      console.log(response)
+      console.log(response.logdate)
       yield put({
         type: 'changeLoginStatus',
         payload: response,
@@ -21,7 +22,8 @@ const Model = {
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
         let { redirect } = params;
-        currentUser.logdate=moment();
+        // currentUser.logdate=moment();
+        localStorage.setItem("logInDate",moment());
         if (redirect) {
           const redirectUrlParams = new URL(redirect);
 

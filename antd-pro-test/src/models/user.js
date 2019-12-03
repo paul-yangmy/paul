@@ -16,10 +16,12 @@ const UserModel = {
     *fetchCurrent(_, { call, put }) {
       const response = yield call(queryCurrent);
       console.log(response.logdate);
+      console.log(response, response.logdate)
       yield put({
         type: 'saveCurrentUser',
         payload: response,
       });
+      console.log(response, response.logdate)
     },
   },
   reducers: {
